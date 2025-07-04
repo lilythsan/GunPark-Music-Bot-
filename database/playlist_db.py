@@ -1,14 +1,17 @@
 from .mongodb import db
 
-playlists = db.playlists
+playlist_collection = db.playlists
 
-async def save_playlist(user_id: int, name: str, songs: list):
-    await playlists.update_one(
-        {"user_id": user_id, "name": name},
-        {"$set": {"songs": songs}},
-        upsert=True
-    )
+async def save_playlist(user_id, playlist_name, songs):
+    data = {
+        "user_id": user_id,
+        "playlist_name": playlist_name,
+        "songs": songs,
+    }
+    await playlist_collection.insert_one(data)
 
-async def get_playlist(user_id: int, name: str):
-    data = await playlists.find_one({"user_id": user_id, "name": name})
-    return data["songs"] if data else []
+async def get_playlists(user_id):
+    return await playlist_collection.find({"user_id": user_id}).to_list(length=50)
+
+async def delete_playlist(user_id, playlist_name):
+    await playlist_collection.delete_one({"user_id": user_id, "playlist_name": playlist_name})
