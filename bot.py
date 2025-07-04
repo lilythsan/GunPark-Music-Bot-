@@ -6,7 +6,6 @@ from config import API_ID, API_HASH, BOT_TOKEN, OWNER_ID
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     level=logging.INFO
-)
 
 # GunPark Bot Client Init
 GunPark = Client(
