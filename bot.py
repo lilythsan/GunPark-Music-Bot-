@@ -1,8 +1,7 @@
 from pyrogram import Client, filters
 import config
 
-app = Client(
-    "GunParkBot",
+app = Client("GunParkBot",
     api_id=config.API_ID,
     api_hash=config.API_HASH,
     bot_token=config.BOT_TOKEN
