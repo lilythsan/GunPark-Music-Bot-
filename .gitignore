@@ -1,0 +1,28 @@
+# Python compiled files
+__pycache__/
+*.py[cod]
+*.so
+
+# Environment variables
+.env
+
+# Log files
+*.log
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Virtual environment
+venv/
+env/
+
+# Temporary files
+*.bak
+*.swp
+*.tmp
+
+# Media and temporary downloads
+resources/temp/
+downloads/
