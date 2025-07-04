@@ -2,5 +2,10 @@ pyrogram
 tgcrypto
 pytube
 python-dotenv
+aiohttp
+bs4
+requests
+pymongo
+
 
 
