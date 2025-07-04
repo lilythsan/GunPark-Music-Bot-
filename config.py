@@ -1,22 +1,19 @@
-from pyrogram import filters
 import os
 from dotenv import load_dotenv
 
-# Load environment variables from .env
+# .env file load karo (isse private credentials fetch honge)
 load_dotenv(dotenv_path=".env")
 
-# Basic Bot Configuration
-API_ID: int = int(os.getenv("API_ID", 0))
-API_HASH: str = os.getenv("API_HASH", "")
-BOT_TOKEN: str = os.getenv("BOT_TOKEN", "")
-OWNER_ID: int = int(os.getenv("OWNER_ID", 0))
-MONGO_DB_URI: str = os.getenv("MONGO_DB_URI", "")
+# Bot Configurations
+API_ID = int(os.getenv("API_ID", 0))
+API_HASH = os.getenv("API_HASH", "")
+BOT_TOKEN = os.getenv("BOT_TOKEN", "")
+OWNER_ID = int(os.getenv("OWNER_ID", 0))
 
-# Optional future configs
-# SUPPORT_GROUP: str = os.getenv("SUPPORT_GROUP", "")
-# LOG_CHANNEL_ID: int = int(os.getenv("LOG_CHANNEL_ID", 0))
-# DATABASE_NAME: str = os.getenv("DATABASE_NAME", "GunParkDB")
+# MongoDB URI
+MONGO_DB_URI = os.getenv("MONGO_DB_URI", "")
 
-# Filters for Commands
-COMMAND_FILTER = filters.command
-
+# Optional Future Configs (if needed later)
+# SUDO_USERS = list(map(int, os.getenv("SUDO_USERS", "").split()))
+# LOG_CHANNEL_ID = int(os.getenv("LOG_CHANNEL_ID", 0))
+# BOT_USERNAME = os.getenv("BOT_USERNAME", "")
