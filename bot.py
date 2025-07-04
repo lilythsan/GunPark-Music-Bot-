@@ -1,42 +1,28 @@
-from pyrogram import Client, filters
-import config
+import logging
+from pyrogram import Client
+from config import API_ID, API_HASH, BOT_TOKEN, OWNER_ID
 
-app = Client("GunParkBot",
-    api_id=config.API_ID,
-    api_hash=config.API_HASH,
-    bot_token=config.BOT_TOKEN
+# Logging Setup
+logging.basicConfig(
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    level=logging.INFO
 )
 
-@app.on_message(filters.command("start") & filters.private)
-def start(client, message):
-    message.reply_text(f"Hello {message.from_user.first_name}!\nGun Park is alive and ready! 🧠")
+# GunPark Bot Client Init
+GunPark = Client(
+    "GunParkBot",
+    api_id=API_ID,
+    api_hash=API_HASH,
+    bot_token=BOT_TOKEN,
+    plugins={"root": "plugins"}
+)
 
-app.run()
-from pyrogram.types import Message
-from pytube import YouTube
-import os
+# Startup Message to Owner
+@GunPark.on_message()
+async def send_start_message(_, message):
+    if message.from_user and str(message.from_user.id) == str(OWNER_ID):
+        await message.reply("👑 GunPark is Live & Loaded My Queen!")
 
-@app.on_message(filters.command("yt") & filters.private)
-def youtube_downloader(client, message: Message):
-    if len(message.command) < 2:
-        message.reply_text("🔗 YouTube link bhejo is format me:\n`/yt <youtube-link>`")
-        return
-
-    url = message.command[1]
-    message.reply_text("⏳ Downloading video...")
-
-    try:
-        yt = YouTube(url)
-        stream = yt.streams.get_audio_only()
-        file_path = stream.download(filename="yt_audio.mp4")
-
-        message.reply_audio(
-            audio=file_path,
-            caption=f"🎶 {yt.title}",
-            performer=yt.author,
-            title=yt.title
-        )
-
-        os.remove(file_path)
-    except Exception as e:
-        message.reply_text(f"❌ Error: {e}")
+if __name__ == "__main__":
+    print("🔥 GunPark Bot Starting...")
+    GunPark.run()
