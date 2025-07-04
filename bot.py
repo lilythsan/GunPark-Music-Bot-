@@ -18,7 +18,7 @@ GunPark = Client(
 )
 
 # Startup Message to Owner
-@GunPark.on_message()
+@GunPark.on_message(filters.private & filters.user(OWNER_ID))
 async def send_start_message(_, message):
     if message.from_user and str(message.from_user.id) == str(OWNER_ID):
         await message.reply("👑 GunPark is Live & Loaded My Queen!")
