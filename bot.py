@@ -1,11 +1,12 @@
-import logging
-from pyrogram import Client
+iimport logging
+from pyrogram import Client, filters
 from config import API_ID, API_HASH, BOT_TOKEN, OWNER_ID
 
 # Logging Setup
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     level=logging.INFO
+)
 
 # GunPark Bot Client Init
 GunPark = Client(
@@ -13,7 +14,7 @@ GunPark = Client(
     api_id=API_ID,
     api_hash=API_HASH,
     bot_token=BOT_TOKEN,
-    plugins={"root": "plugins"}
+    plugins={"root": "plugins"}  # plugins folder ka path
 )
 
 # Startup Message to Owner
