@@ -1,3 +1,0 @@
-├── start.jpg        (bot startup image - optional)
-├── logo.png         (GunPark bot logo)
-├── animated.gif     (inline button gifs, horror games etc.)
