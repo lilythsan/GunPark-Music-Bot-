@@ -1,28 +1,68 @@
+import asyncio
 import logging
-from pyrogram import Client, filters
-from config import API_ID, API_HASH, BOT_TOKEN, OWNER_ID
+from pyrogram import Client
+from config import (
+    API_ID,
+    API_HASH,
+    BOT_TOKEN,
+    OWNER_ID,
+    ASSISTANT_SESSION,
+    ASSISTANT_API_ID,
+    ASSISTANT_API_HASH
+)
+from pytgcalls import PyTgCalls
 
-# Logging Setup
+# Logging setup
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     level=logging.INFO
 )
 
-# GunPark Bot Client Init
+LOGGER = logging.getLogger("GunParkBot")
+LOGGER.info("🔥 GunPark Bot Starting...")
+
+# Main Bot
 GunPark = Client(
-    "GunParkBot",
+    name="GunParkBot",
     api_id=API_ID,
     api_hash=API_HASH,
     bot_token=BOT_TOKEN,
-    plugins={"root": "plugins"}  # plugins folder ka path
+    plugins={"root": "plugins"}
 )
 
-# Startup Message to Owner
-@GunPark.on_message(filters.private & filters.user(OWNER_ID))
-async def send_start_message(_, message):
-    if message.from_user and str(message.from_user.id) == str(OWNER_ID):
-        await message.reply("👑 GunPark is Live & Loaded My Queen!")
+# Assistant VC Client
+Assistant = Client(
+    name=ASSISTANT_SESSION,
+    api_id=ASSISTANT_API_ID,
+    api_hash=ASSISTANT_API_HASH,
+    in_memory=True
+)
+
+# VC Streaming Engine
+VoiceCall = PyTgCalls(Assistant)
+
+# Start everything
+async def start_all():
+    await Assistant.start()
+    await GunPark.start()
+    await VoiceCall.start()
+    LOGGER.info("✅ GunPark + Assistant VC + VC Engine started.")
+    await idle()
+
+# Keep running
+async def idle():
+    try:
+        while True:
+            await asyncio.sleep(1)
+    except KeyboardInterrupt:
+        pass
+    finally:
+        await GunPark.stop()
+        await Assistant.stop()
+        LOGGER.info("🛑 Bot stopped.")
 
 if __name__ == "__main__":
-    print("🔥 GunPark Bot Starting...")
-    GunPark.run()
+    asyncio.get_event_loop().run_until_complete(start_all())
+
+
+
