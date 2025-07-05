@@ -13,7 +13,7 @@ OWNER_ID = int(os.getenv("OWNER_ID", 0))
 # MongoDB URI
 MONGO_DB_URI = os.getenv("MONGO_DB_URI", "")
 
-# Optional Future Configs (if needed later)
-# SUDO_USERS = list(map(int, os.getenv("SUDO_USERS", "").split()))
-# LOG_CHANNEL_ID = int(os.getenv("LOG_CHANNEL_ID", 0))
-# BOT_USERNAME = os.getenv("BOT_USERNAME", "")
+# Assistant VC Account Details
+ASSISTANT_SESSION = os.getenv("ASSISTANT_SESSION")
+ASSISTANT_API_ID = int(os.getenv("ASSISTANT_API_ID"))
+ASSISTANT_API_HASH = os.getenv("ASSISTANT_API_HASH")
