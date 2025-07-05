@@ -10,7 +10,7 @@ from config import (
     ASSISTANT_API_ID,
     ASSISTANT_API_HASH
 )
-from pytgcalls import PyTgCalls
+from py_tgcalls import PyTgCalls
 
 # Logging setup
 logging.basicConfig(
