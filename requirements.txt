@@ -6,7 +6,7 @@ aiohttp
 bs4
 requests
 pymongo
-pytgcalls==2.1.0
+pytgcalls==2.2.5
 
 
 
