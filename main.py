@@ -2,17 +2,18 @@ import asyncio
 import os
 from pyrogram import Client, filters
 from pytgcalls import PyTgCalls
-from pytgcalls.types.input_stream.quality import AudioPiped
+from pytgcalls.types.input_stream import AudioPiped
 from pytgcalls.types.input_stream.quality import HighQualityAudio
 from youtubesearchpython import VideosSearch
 from yt_dlp import YoutubeDL
 
 from config import API_ID, API_HASH, SESSION_STRING
 
+# Initialize Pyrogram and PyTgCalls
 app = Client("GunPark", api_id=API_ID, api_hash=API_HASH, session_string=SESSION_STRING)
 call_py = PyTgCalls(app)
 
-# Function to search and download audio
+# Function to search and download YouTube audio
 def download_audio(query):
     videos_search = VideosSearch(query, limit=1)
     result = videos_search.result()["result"][0]
@@ -58,8 +59,7 @@ async def leave_vc(client, message):
     try:
         await call_py.leave_group_call(message.chat.id)
         await message.reply("👋 Left VC.")
-
-        # Clean up audio files
+        # Delete all downloaded audio files
         for file in os.listdir():
             if file.endswith(".webm") or file.endswith(".mp3"):
                 os.remove(file)
