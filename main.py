@@ -2,8 +2,7 @@ import asyncio
 import os
 from pyrogram import Client, filters
 from pytgcalls import PyTgCalls
-from pytgcalls.types.input_stream import AudioPiped
-from pytgcalls.types.input_stream.quality import HighQualityAudio
+from pytgcalls.types.input_stream import AudioPiped, HighQualityAudio
 from youtubesearchpython import VideosSearch
 from yt_dlp import YoutubeDL
 
@@ -59,7 +58,6 @@ async def leave_vc(client, message):
     try:
         await call_py.leave_group_call(message.chat.id)
         await message.reply("👋 Left VC.")
-        # Delete all downloaded audio files
         for file in os.listdir():
             if file.endswith(".webm") or file.endswith(".mp3"):
                 os.remove(file)
