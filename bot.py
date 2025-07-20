@@ -11,8 +11,7 @@ from config import (
     ASSISTANT_API_HASH
 )
 from pytgcalls import PyTgCalls
-from pytgcalls.types.input_stream import AudioPiped  # ✅ Fixed this import
-from pytgcalls.types.input_stream.quality import HighQualityAudio
+from pytgcalls.types.input_stream import AudioPiped, HighQualityAudio
 
 # Logging setup
 logging.basicConfig(
