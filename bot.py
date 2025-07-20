@@ -11,7 +11,7 @@ from config import (
     ASSISTANT_API_HASH
 )
 from pytgcalls import PyTgCalls
-from pytgcalls.types.input_stream.quality import AudioPiped
+from pytgcalls.types.input_stream import AudioPiped  # ✅ Fixed this import
 from pytgcalls.types.input_stream.quality import HighQualityAudio
 
 # Logging setup
@@ -34,10 +34,10 @@ GunPark = Client(
 
 # Assistant VC Client
 Assistant = Client(
-    name=ASSISTANT_SESSION,
+    name="assistant",
     api_id=ASSISTANT_API_ID,
     api_hash=ASSISTANT_API_HASH,
-    in_memory=True
+    session_string=ASSISTANT_SESSION
 )
 
 # VC Streaming Engine
@@ -63,8 +63,5 @@ async def idle():
         await Assistant.stop()
         LOGGER.info("🛑 Bot stopped.")
 
-if __name__ == "__main__":
-    asyncio.get_event_loop().run_until_complete(start_all())
-
-
-
+if _name_ == "_main_":
+    asyncio.run(start_all())
