@@ -6,4 +6,6 @@ aiohttp==3.9.5
 beautifulsoup4==4.12.3
 requests==2.32.3
 pymongo==4.7.2
-pytgcalls @ git+https://github.com/pytgcalls/pytgcalls@master
+py-tgcalls==2.2.5
+ntgcalls==2.0.5
+yt-dlp==2025.6.30
