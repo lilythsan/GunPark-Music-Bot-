@@ -2,9 +2,6 @@ import asyncio
 import os
 from pyrogram import Client, filters
 from pytgcalls import PyTgCalls
-from youtubesearchpython import VideosSearch
-from yt_dlp import YoutubeDL
-from pytgcalls.exceptions import GroupCallNotFoundError
 from config import API_ID, API_HASH, SESSION_STRING
 
 # === Setup ===
