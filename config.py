@@ -14,7 +14,7 @@ OWNER_ID = int(os.getenv("OWNER_ID", 0))
 MONGO_DB_URI = os.getenv("MONGO_URL", "")
 
 # Assistant VC Account Details
-ASSISTANT_SESSION = os.getenv("ASSISTANT_SESSION", "")
 ASSISTANT_API_ID = int(os.getenv("ASSISTANT_API_ID", 0))
 ASSISTANT_API_HASH = os.getenv("ASSISTANT_API_HASH", "")
+ASSISTANT_SESSION = os.getenv("ASSISTANT_SESSION", "")
 SESSION_STRING = os.getenv("ASSISTANT_SESSION")
