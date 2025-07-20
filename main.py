@@ -2,7 +2,8 @@ import asyncio
 import os
 from pyrogram import Client, filters
 from pytgcalls import PyTgCalls
-from pytgcalls.types.input_stream import AudioPiped, HighQualityAudio
+from pytgcalls.types.input_stream import InputAudioStream
+from pytgcalls.types.input_stream.quality import AudioQuality
 from youtubesearchpython import VideosSearch
 from yt_dlp import YoutubeDL
 from pytgcalls.exceptions import GroupCallNotFoundError
@@ -34,11 +35,13 @@ def add_to_queue(chat_id, file_path, title):
 
 async def play_next(chat_id):
     if loop_enabled.get(chat_id):
-        # Replay current if loop is on
         current = queues[chat_id][0]
         await call_py.join_group_call(
             chat_id,
-            AudioPiped(current["file"], HighQualityAudio())
+            InputAudioStream(
+                current["file"],
+                audio_quality=AudioQuality.HIGH
+            )
         )
         return
 
@@ -49,7 +52,10 @@ async def play_next(chat_id):
         next_track = queues[chat_id][0]
         await call_py.join_group_call(
             chat_id,
-            AudioPiped(next_track["file"], HighQualityAudio())
+            InputAudioStream(
+                next_track["file"],
+                audio_quality=AudioQuality.HIGH
+            )
         )
 
 
@@ -198,7 +204,7 @@ async def vc_resume(client, message):
 async def main():
     await app.start()
     await call_py.start()
-    print("✅ Bot is running with queue and loop support...")
+    print("✅ Bot is running with PyTgCalls v2.2.5 compatibility...")
     await app.idle()
 
 if _name_ == "_main_":
