@@ -2,7 +2,6 @@ import asyncio
 import os
 from pyrogram import Client, filters
 from pytgcalls import PyTgCalls
-from pytgcalls import InputAudioStream, AudioQuality
 from youtubesearchpython import VideosSearch
 from yt_dlp import YoutubeDL
 from pytgcalls.exceptions import GroupCallNotFoundError
