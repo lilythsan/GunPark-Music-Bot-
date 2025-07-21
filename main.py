@@ -3,12 +3,6 @@ import os
 from pyrogram import idle
 from pyrogram import Client, filters
 from pytgcalls import PyTgCalls
-from pytgcalls.types.input_stream import InputAudioStream
-from pytgcalls.types.input_stream.quality import AudioQuality
-from pytgcalls.exceptions import GroupCallNotFoundError
-from youtubesearchpython import VideosSearch
-from yt_dlp import YoutubeDL
-
 from config import API_ID, API_HASH, SESSION_STRING
 
 # === Setup ===
