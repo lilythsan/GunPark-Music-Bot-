@@ -195,5 +195,5 @@ async def main():
     print("✅ Bot is running with PyTgCalls v2.2.5 compatibility...")
     await app.idle()
 
-if _name_ == "_main_":
+if __name__ == "__main__":
     asyncio.run(main())
