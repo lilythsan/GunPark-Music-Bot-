@@ -4,10 +4,10 @@ from pyrogram import idle
 from pyrogram import Client, filters
 from pyrogram.handlers import MessageHandler
 from pytgcalls import PyTgCalls
-from config import API_ID, API_HASH, SESSION_STRING
+from config import API_ID, API_HASH, ASSISTANT_SESSION
 
 # === Setup ===
-app = Client("GunPark", api_id=API_ID, api_hash=API_HASH, session_string=SESSION_STRING)
+app = Client("GunPark", api_id=API_ID, api_hash=API_HASH, session_string=ASSISTANT_SESSION)
 call_py = PyTgCalls(app)
 
 AUDIO_DIR = "./audios"
