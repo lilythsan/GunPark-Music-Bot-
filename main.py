@@ -79,8 +79,8 @@ def download_audio(query):
 async def start_command(client, message):
     await message.reply("👋 Hello! I'm your music bot.\nUse /play <song name> to play music.\nUse /help to see all commands.")
 
-@app.on_message(filters.command("help"))
-async def help_command(client, message):
+    @app.on_message(filters.command("help"))
+    async def help_command(client, message):
     help_text = (
         "🎵 *Available Commands:*\n\n"
         "/play <song name> - Download & play song from YouTube\n"
