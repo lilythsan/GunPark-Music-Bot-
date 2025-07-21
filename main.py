@@ -1,7 +1,7 @@
 import asyncio
 import os
+from pyrogram import idle
 from pyrogram import Client, filters
-from pyrogram.idle import idle
 from pytgcalls import PyTgCalls
 from pytgcalls.types.input_stream import InputAudioStream
 from pytgcalls.types.input_stream.quality import AudioQuality
