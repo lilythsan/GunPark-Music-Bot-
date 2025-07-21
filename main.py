@@ -2,6 +2,7 @@ import asyncio
 import os
 from pyrogram import idle
 from pyrogram import Client, filters
+from pyrogram.handlers import MessageHandler
 from pytgcalls import PyTgCalls
 from config import API_ID, API_HASH, SESSION_STRING
 
@@ -73,6 +74,25 @@ def download_audio(query):
         return filename, title
 
 # === Commands ===
+
+@app.on_message(filters.command("start"))
+async def start_command(client, message):
+    await message.reply("👋 Hello! I'm your music bot.\nUse /play <song name> to play music.\nUse /help to see all commands.")
+
+@app.on_message(filters.command("help"))
+async def help_command(client, message):
+    help_text = (
+        "🎵 *Available Commands:*\n\n"
+        "/play <song name> - Download & play song from YouTube\n"
+        "/vcplay <filename> - Play audio from saved audios folder\n"
+        "/skip - Skip current playing track\n"
+        "/queue - Show the current queue\n"
+        "/loop - Toggle loop for current track\n"
+        "/vcpause - Pause playback\n"
+        "/vcresume - Resume playback\n"
+        "/vcstop or /leave - Stop and leave VC"
+    )
+ await message.reply(help_text)
 
 @app.on_message(filters.command("play"))
 async def play_song(client, message):
