@@ -53,13 +53,6 @@ async def play_next(chat_id):
             )
         )
 
-
-@call_py.on_stream_end()
-async def on_stream_end(_, update):
-    chat_id = update.chat_id
-    await play_next(chat_id)
-
-
 # === YouTube Downloader ===
 def download_audio(query):
     videos_search = VideosSearch(query, limit=1)
