@@ -11,7 +11,7 @@ from config import (
     ASSISTANT_API_HASH
 )
 from pytgcalls import PyTgCalls
-from pytgcalls.types.input_stream import AudioPiped, HighQualityAudio
+from pytgcalls.types.input_stream import AudioPiped, HighQualityAudi
 
 # Logging setup
 logging.basicConfig(
