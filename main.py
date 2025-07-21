@@ -1,6 +1,7 @@
 import asyncio
 import os
 from pyrogram import Client, filters
+from pyrogram.idle import idle
 from pytgcalls import PyTgCalls
 from config import API_ID, API_HASH, SESSION_STRING
 
