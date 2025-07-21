@@ -93,7 +93,6 @@ async def help_command(client, message):
         "/vcstop or /leave - Stop and leave VC"
     )
         await message.reply(help_text)
-
 @app.on_message(filters.command("play"))
 async def play_song(client, message):
     if len(message.command) < 2:
