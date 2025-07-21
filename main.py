@@ -92,7 +92,7 @@ async def help_command(client, message):
         "/vcresume - Resume playback\n"
         "/vcstop or /leave - Stop and leave VC"
     )
- await message.reply(help_text)
+        await message.reply(help_text)
 
 @app.on_message(filters.command("play"))
 async def play_song(client, message):
