@@ -3,6 +3,12 @@ import os
 from pyrogram import Client, filters
 from pyrogram.idle import idle
 from pytgcalls import PyTgCalls
+from pytgcalls.types.input_stream import InputAudioStream
+from pytgcalls.types.input_stream.quality import AudioQuality
+from pytgcalls.exceptions import GroupCallNotFoundError
+from youtubesearchpython import VideosSearch
+from yt_dlp import YoutubeDL
+
 from config import API_ID, API_HASH, SESSION_STRING
 
 # === Setup ===
@@ -16,21 +22,18 @@ ALLOWED_EXTS = [".mp3", ".opus", ".wav", ".m4a"]
 queues = {}  # chat_id: list of {"file": path, "title": name}
 loop_enabled = {}  # chat_id: True/False
 
-
 # === Helpers ===
 def is_valid_audio(path: str) -> bool:
     ext = os.path.splitext(path)[-1].lower()
     return os.path.isfile(path) and ext in ALLOWED_EXTS
-
 
 def add_to_queue(chat_id, file_path, title):
     if chat_id not in queues:
         queues[chat_id] = []
     queues[chat_id].append({"file": file_path, "title": title})
 
-
 async def play_next(chat_id):
-    if loop_enabled.get(chat_id):
+    if loop_enabled.get(chat_id) and queues.get(chat_id):
         current = queues[chat_id][0]
         await call_py.join_group_call(
             chat_id,
@@ -63,7 +66,7 @@ def download_audio(query):
 
     ydl_opts = {
         "format": "bestaudio/best",
-        "outtmpl": "%(title).20s.%(ext)s",
+        "outtmpl": f"{AUDIO_DIR}/%(title).20s.%(ext)s",
         "quiet": True,
         "noplaylist": True,
         "extractaudio": True,
@@ -74,7 +77,6 @@ def download_audio(query):
         info = ydl.extract_info(url, download=True)
         filename = ydl.prepare_filename(info)
         return filename, title
-
 
 # === Commands ===
 
@@ -98,7 +100,6 @@ async def play_song(client, message):
             await msg.edit(f"✅ Added to queue: {title}")
     except Exception as e:
         await msg.edit(f"❌ Error: {e}")
-
 
 @app.on_message(filters.command("vcplay"))
 async def vc_play(client, message):
@@ -125,7 +126,6 @@ async def vc_play(client, message):
     else:
         await message.reply(f"✅ Added to queue: {filename}")
 
-
 @app.on_message(filters.command(["vcstop", "vcleave", "leave"]))
 async def vc_stop(client, message):
     try:
@@ -138,7 +138,6 @@ async def vc_stop(client, message):
     except Exception as e:
         await message.reply(f"❌ Couldn't stop VC: {e}")
 
-
 @app.on_message(filters.command("skip"))
 async def skip_song(client, message):
     try:
@@ -147,7 +146,6 @@ async def skip_song(client, message):
         await message.reply("⏭ Skipped to next track.")
     except Exception as e:
         await message.reply(f"❌ Error skipping: {e}")
-
 
 @app.on_message(filters.command("queue"))
 async def show_queue(client, message):
@@ -162,14 +160,12 @@ async def show_queue(client, message):
         text += f"{prefix} {song['title']}\n"
     await message.reply(text)
 
-
 @app.on_message(filters.command("loop"))
 async def toggle_loop(client, message):
     current = loop_enabled.get(message.chat.id, False)
     loop_enabled[message.chat.id] = not current
     status = "🔁 Loop enabled." if not current else "⏹ Loop disabled."
     await message.reply(status)
-
 
 @app.on_message(filters.command("vcpause"))
 async def vc_pause(client, message):
@@ -179,7 +175,6 @@ async def vc_pause(client, message):
     except Exception as e:
         await message.reply(f"❌ Error pausing: {e}")
 
-
 @app.on_message(filters.command("vcresume"))
 async def vc_resume(client, message):
     try:
@@ -188,13 +183,12 @@ async def vc_resume(client, message):
     except Exception as e:
         await message.reply(f"❌ Error resuming: {e}")
 
-
 # === Start Bot ===
 async def main():
     await app.start()
     await call_py.start()
     print("✅ Bot is running with PyTgCalls v2.2.5 compatibility...")
-    await app.idle()
+    await idle()  # <--- This is the correct usage
 
-if __name__ == "__main__":
+if _name_ == "_main_":
     asyncio.run(main())
