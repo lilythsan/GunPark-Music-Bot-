@@ -10,7 +10,7 @@ from pyrogram import Client as AssistantClient
 # === Setup ===
 app = Client("GunPark", bot_token=BOT_TOKEN, api_id=API_ID, api_hash=API_HASH)
 assistant = AssistantClient("Assistent", api_id=API_ID, api_hash=API_HASH, session_string=ASSISTANT_SESSION)
-call_py = PyTgcalls(assistant)
+call_py = PyTgCalls(assistant)
 
 
 AUDIO_DIR = "./audios"
