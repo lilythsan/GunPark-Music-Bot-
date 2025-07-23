@@ -5,7 +5,7 @@ from pyrogram import Client, filters
 from pyrogram.handlers import MessageHandler
 from pytgcalls import PyTgCalls
 from config import API_ID, API_HASH, BOT_TOKEN, ASSISTANT_SESSION
-from pyroram import Client as AssistantClient 
+from pyrogram import Client as AssistantClient 
 
 # === Setup ===
 app = Client("GunPark", bot_token=BOT_TOKEN, api_id=API_ID, api_hash=API_HASH)
