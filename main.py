@@ -4,11 +4,14 @@ from pyrogram import idle
 from pyrogram import Client, filters
 from pyrogram.handlers import MessageHandler
 from pytgcalls import PyTgCalls
-from config import API_ID, API_HASH, ASSISTANT_SESSION
+from config import API_ID, API_HASH, BOT_TOKEN, ASSISTANT_SESSION
+from pyroram import Client as AssistantClient 
 
 # === Setup ===
-app = Client("GunPark", api_id=API_ID, api_hash=API_HASH, session_string=ASSISTANT_SESSION)
-call_py = PyTgCalls(app)
+app = Client("GunPark", bot_token=BOT_TOKEN, api_id=API_ID, api_hash=API_HASH)
+assistant = AssistantClient("Assistent", api_id=API_ID, api_hash=API_HASH, session_string=ASSISTANT_SESSION)
+call_py = PyTgcalls(assistant)
+
 
 AUDIO_DIR = "./audios"
 os.makedirs(AUDIO_DIR, exist_ok=True)
@@ -199,6 +202,7 @@ async def vc_resume(client, message):
 # === Start Bot ===
 async def main():
     await app.start()
+    await assistant.start()
     await call_py.start()
     print("✅ Bot is running with PyTgCalls v2.2.5 compatibility...")
     await idle()  # <--- This is the correct usage
