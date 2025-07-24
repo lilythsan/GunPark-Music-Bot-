@@ -204,7 +204,7 @@ async def main():
     await app.start()
     await assistant.start()
     await call_py.start()
-    print("✅ Bot is running with PyTgCalls v2.2.5 compatibility...")
+    print("Bot is running with PyTgCalls v2.2.5 compatibility...")
     await idle()  # <--- This is the correct usage
 
 if __name__ == "__main__":
